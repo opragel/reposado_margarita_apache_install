@@ -2,6 +2,7 @@
 # Requires placing an .htpasswd file in /usr/local/sus/margarita for authentication
 # Configures reposado with no LocalCatalogURLBase
 
+# Change the password below. Used to access Margarita web interface.
 MARGARITA_USERNAME="susadmin"
 MARGARITA_PASSWORD="apple123"
 
