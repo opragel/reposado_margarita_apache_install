@@ -27,9 +27,6 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
 </dict>
 </plist>' > /usr/local/sus/reposado/code/preferences.plist
 
-chown -R www-data:www-data /usr/local/sus /usr/local/meta /usr/local/sus/www
-chmod -R g+r /usr/local/sus
-
 # Link reposado data so margarita can access it
 ln -s /usr/local/sus/reposado/code/reposadolib /usr/local/sus/margarita/reposadolib
 ln -s /usr/local/sus/reposado/code/preferences.plist /usr/local/sus/margarita/preferences.plist
@@ -108,6 +105,8 @@ echo '<VirtualHost *:8086>
 # correct folder permissions
 chown -R www-data:www-data /usr/local/sus
 chmod -R g+r /usr/local/sus
+
+apache2ctl graceful
 
 # Kickoff reposado SUS sync
 # /usr/local/sus/reposado/code/./repo_sync
