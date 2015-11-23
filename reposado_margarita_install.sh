@@ -2,6 +2,9 @@
 # Requires placing an .htpasswd file in /usr/local/sus/margarita for authentication
 # Configures reposado with no LocalCatalogURLBase
 
+MARGARITA_USERNAME="susadmin"
+MARGARITA_PASSWORD="apple123"
+
 # install reposado and margarita dependecies
 apt-get -y install apache2-utils libapache2-mod-wsgi git python-setuptools python curl python-pip apache2
 easy_install flask
@@ -101,6 +104,8 @@ echo '<VirtualHost *:8086>
     LogLevel warn
     CustomLog ${APACHE_LOG_DIR}/sus-access.log combined
 </VirtualHost>' > /etc/apache2/sites-enabled/margarita.conf
+
+htpasswd -cb /usr/local/sus/margarita/.htpasswd "$MARGARITA_USERNAME" "$MARGARITA_PASSWORD"
 
 # correct folder permissions
 chown -R www-data:www-data /usr/local/sus
