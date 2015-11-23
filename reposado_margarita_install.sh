@@ -49,16 +49,7 @@ echo '# /etc/apache2/sites-enabled/000-default.conf
 # SUS/Reposado at 8080
 Listen 8080
 # Margarita at 8086
-Listen 8086
-
-# JDS at 443
-<IfModule ssl_module>
-        Listen 443
-</IfModule>
-
-<IfModule mod_gnutls.c>
-        Listen 443
-</IfModule>' > /etc/apache2/ports.conf
+Listen 8086' > /etc/apache2/ports.conf
 
 echo '<VirtualHost *:8080>
     ServerAdmin webmaster@localhost
