@@ -1,6 +1,7 @@
 #!/bin/bash
 # Configures reposado with no LocalCatalogURLBase
 # Reposado on port 8080, Margarita on 8086
+# Intended for use on Ubuntu server 14.04.3/15.10, ymmv!
 
 # Change the password below. Used to access Margarita web interface.
 MARGARITA_USERNAME="susadmin"
