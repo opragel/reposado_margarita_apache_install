@@ -1,18 +1,17 @@
 #!/bin/bash
+# Requires placing an .htpasswd file in /usr/local/sus/margarita for authentication
+# Configures reposado with no LocalCatalogURLBase
 
 # install reposado and margarita dependecies
 apt-get -y install apache2-utils libapache2-mod-wsgi git python-setuptools python curl python-pip apache2
 easy_install flask
 
-# make directory for storing reposado and margarita
-mkdir /usr/local/sus
+# make directory for storing reposado + margarita as well as catalogs and packages
+mkdir /usr/local/sus /usr/local/sus/www /usr/local/sus/meta
 
 # download reposado and margarita
 git clone https://github.com/wdas/reposado.git /usr/local/sus/reposado
 git clone https://github.com/jessepeterson/margarita.git /usr/local/sus/margarita
-
-# Make directories for storing software updates
-mkdir /srv/sus /srv/sus/www /srv/sus/meta
 
 # Write reposado config file
 echo '<?xml version="1.0" encoding="UTF-8"?>
@@ -22,13 +21,13 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
         <key>LocalCatalogURLBase</key>
         <string></string>
         <key>UpdatesMetadataDir</key>
-        <string>/srv/sus/meta</string>
+        <string>/usr/local/sus/meta</string>
         <key>UpdatesRootDir</key>
-        <string>/srv/sus/www</string>
+        <string>/usr/local/sus/www</string>
 </dict>
 </plist>' > /usr/local/sus/reposado/code/preferences.plist
 
-chown -R root:www-data /usr/local/sus /srv/sus/meta /srv/sus/www
+chown -R www-data:www-data /usr/local/sus /usr/local/meta /usr/local/sus/www
 chmod -R g+r /usr/local/sus
 
 # Link reposado data so margarita can access it
@@ -46,12 +45,12 @@ from margarita import app as application' > /usr/local/sus/margarita/margarita.w
 # Write apache sites configuration
 echo '# /etc/apache2/sites-enabled/000-default.conf
 
-# SUS/Reposado lives at 8080
+# SUS/Reposado at 8080
 Listen 8080
-#Margarita Lives at 8086
+# Margarita at 8086
 Listen 8086
 
-#JDS Stuff lives at 443
+# JDS at 443
 <IfModule ssl_module>
         Listen 443
 </IfModule>
@@ -62,9 +61,9 @@ Listen 8086
 
 echo '<VirtualHost *:8080>
     ServerAdmin webmaster@localhost
-    DocumentRoot /srv/sus/www
+    DocumentRoot /usr/local/sus/www
 
-    Alias /content /srv/sus/www/content
+    Alias /content /usr/local/sus/www/content
     <Directory />
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
@@ -79,7 +78,7 @@ echo '<VirtualHost *:8080>
 
 echo '<VirtualHost *:8086>
     ServerAdmin webmaster@localhost
-    DocumentRoot /srv/sus/www
+    DocumentRoot /usr/local/sus/www
  
     # Base cofiguration
     <Directory />
@@ -107,8 +106,8 @@ echo '<VirtualHost *:8086>
 </VirtualHost>' > /etc/apache2/sites-enabled/margarita.conf
 
 # correct folder permissions
-chown -R root:www-data /usr/local/sus
+chown -R www-data:www-data /usr/local/sus
 chmod -R g+r /usr/local/sus
 
 # Kickoff reposado SUS sync
-/usr/local/sus/reposado/code/./repo_sync
+# /usr/local/sus/reposado/code/./repo_sync
