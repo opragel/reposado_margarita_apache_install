@@ -1,6 +1,6 @@
 #!/bin/bash
-# Requires placing an .htpasswd file in /usr/local/sus/margarita for authentication
 # Configures reposado with no LocalCatalogURLBase
+# Reposado on port 8080, Margarita on 8086
 
 # Change the password below. Used to access Margarita web interface.
 MARGARITA_USERNAME="susadmin"
