@@ -16,7 +16,7 @@ mkdir /usr/local/sus /usr/local/sus/www /usr/local/sus/meta
 
 # download reposado and margarita
 git clone https://github.com/wdas/reposado.git /usr/local/sus/reposado
-git clone https://github.com/jessepeterson/margarita.git /usr/local/sus/margarita
+git clone https://github.com/opragel/margarita.git /usr/local/sus/margarita
 
 # Write reposado config file
 echo '<?xml version="1.0" encoding="UTF-8"?>
