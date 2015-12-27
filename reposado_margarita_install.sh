@@ -35,7 +35,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>
 # Link reposado data so margarita can access it
 ln -s /usr/local/sus/reposado/code/reposadolib /usr/local/sus/margarita/reposadolib
 ln -s /usr/local/sus/reposado/code/preferences.plist /usr/local/sus/margarita/preferences.plist
-ln -s /usr/local/sus/reposado/code/repo_sync /usr/local/sus/margarita/repo_sync
+ln -s /usr/local/sus/reposado/code/repo_sync /usr/local/sus/margarita/repo_sync.py
 
 # Write wsgi script for auto-starting margarita with apache
 echo 'import sys
